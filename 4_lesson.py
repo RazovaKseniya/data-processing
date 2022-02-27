@@ -19,12 +19,12 @@ news_blocks = dom.xpath("//a[contains(@class, '_topnews')]")
 for news in news_blocks:
     doc = {}
     name_news = news.xpath(".//h3[contains(@class, 'card-big__title')]/text() | .//span[contains(@class, 'card-mini__title')]/text()")[0]
-    link_news = news.xpath(".//a[contains(@class, 'card-big _topnews')]/@href | .//a[contains(@class, 'card-mini _topnews')]/@href")
-    link_source = url + str(link_news[0])
+    link_news = news.xpath(".//a[contains(@class, 'card-big _topnews')]/@href | .//a[contains(@class, 'card-mini _topnews')]/@href")[0]
+    #link_source = url + str(link_news[0])
     time = news.xpath(".//time[contains(@class, 'card-big__date')]/text() | .//time[contains(@class, 'card-mini__date')]/text()")[0]
 
     doc['Name'] = name_news
-    doc['Link'] = link_source
+    doc['Link'] = link_news
     doc['Time'] = time
 
 lenta_ru.update_one(doc, {'$set': doc}, upsert=True)
