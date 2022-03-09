@@ -21,10 +21,10 @@ class JobparserPipeline:
             item['min_salary'], item['max_salary'] = self.process_salary_hh(item['salary'])
             item['salary_in'] = self.process_currency_hh(item['salary'])
             del item['salary']
-        # if spider.name == 'sjru':
-        #     item['min_salary'], item['max_salary'] = self.process_salary_sj(item['salary'])
-        #     item['salary_in'] = self.process_currency_sj(item['salary'])
-        #     del item['salary']
+        if spider.name == 'sjru':
+            item['min_salary'], item['max_salary'] = self.process_salary_sj(item['salary'])
+            item['salary_in'] = self.process_currency_sj(item['salary'])
+            del item['salary']
 
         collection = self.mongobase[spider.name]
         collection.insert_one(item)
